@@ -1,0 +1,232 @@
+Requerimiento 3 - Historial de simulaciones del cliente
+
+"Queremos que el cliente pueda ver sus últimas simulaciones guardadas, sin necesidad de registrarse. Podemos usar el almacenamiento local del navegador. Debe mostrar fecha, monto y cuota de cada simulación guardada, y permitir eliminar simulaciones antiguas. Esto tiene prioridad media."
+
+
+Instrucciones de la Evaluación
+Parte 1: Crear historias de usuario en Jira (40 puntos)
+
+Tiempo sugerido: 30 minutos
+
+ 
+
+Transforma cada uno de los 3 requerimientos en historias de usuario en Jira. Cada historia debe tener:
+
+·      Título descriptivo (campo Resumen).
+
+·      Descripción con formato: "Como [usuario], quiero [acción], para [beneficio]."
+
+·      Al menos 3 criterios de aceptación verificables y específicos.
+
+·      Estimación en Story Points usando escala Fibonacci (1, 2, 3, 5, 8).
+
+·      Prioridad asignada (Highest, High, Medium, Low).
+
+NOTA: Crea las historias en el mismo proyecto "Simulador Hipotecario" (SH) que usaste en el laboratorio.
+
+ 
+
+Criterio
+	
+
+Puntos
+
+Formato correcto "Como... quiero... para..." (por historia)
+	
+
+3 pts. c/u = 9 pts.
+
+Criterios de aceptación claros y verificables (por historia)
+	
+
+5 pts. c/u = 15 pts.
+
+Estimación coherente en Story Points (por historia)
+	
+
+2 pts. c/u = 6 pts.
+
+Prioridad correcta según contexto del negocio (por historia)
+	
+
+2 pts. c/u = 6 pts.
+
+Historias creadas correctamente en Jira
+	
+
+4 pts.
+
+ 
+Parte 2: Priorizar el Backlog completo (20 puntos)
+
+Tiempo sugerido: 10 minutos
+
+ 
+
+Ordena el Backlog completo del proyecto en Jira (las 3 historias pendientes del Sprint 1 + las 3 nuevas) según su prioridad. El orden debe reflejar valor de negocio y urgencia.
+
+ 
+
+Criterio
+	
+
+Puntos
+
+Orden del Backlog coherente con valor de negocio y urgencia
+	
+
+20 pts
+
+ 
+Parte 3: Planificar el Sprint 2 (25 puntos)
+
+Tiempo sugerido: 10 minutos
+
+ 
+
+Crea el Sprint 2 en Jira con la siguiente configuración:
+
+Parámetro
+	
+
+Valor
+
+Nombre
+	
+
+Sprint 2 - Regulatorio y Mejoras
+
+Duración
+	
+
+2 semanas
+
+Capacidad referencial
+	
+
+16 Story Points (basado en velocidad del Sprint 1)
+
+ 
+
+Selecciona las historias que entraran en el Sprint 2, respetando:
+
+·      La capacidad del equipo (no exceder los 16 Story Points).
+
+·      La prioridad del Backlog que definiste en la Parte 2.
+
+·      Inicia el Sprint en Jira.
+
+ 
+
+Criterio
+	
+
+Puntos
+
+Sprint creado correctamente en Jira con nombre y fechas
+	
+
+5 pts.
+
+Historias seleccionadas respetan capacidad (máx. 16 SP)
+	
+
+10 pts.
+
+Selección coherente con la priorización del Backlog
+	
+
+10 pts.
+
+ 
+Parte 4: Reflexión (15 puntos)
+
+Tiempo sugerido: 10 minutos
+
+ 
+
+Responde la siguiente pregunta en un documento y lo envía al profesor:
+
+ 
+
+Durante el Sprint 2, el gerente comercial del banco llega con un requerimiento urgente que no estaba planificado: "Necesito que el simulador permita agendar una cita con un ejecutivo directamente desde el resultado de la simulación. El directorio lo quiere para la próxima semana." ¿Como manejarías esta situación según Scrum? Considera en tu respuesta: que le dirías al gerente, que rol de Scrum debería intervenir, y que opciones tiene el equipo.
+
+ 
+
+Criterio
+	
+
+Puntos
+
+Identifica correctamente el rol que debe intervenir
+	
+
+5 pts.
+
+Explica que no se agregan ítems al Sprint en curso sin negociación y por qué.
+	
+
+5 pts.
+
+Propone alternativas viables (Backlog, negociar alcance, siguiente Sprint)
+	
+
+5 pts.
+
+
+Entregables
+
+Debes entregar:
+
+ 
+
+1.    Link a tablero en Jira con accesos para el profesor y al menos incluir:
+
+·      El tablero debe estar actualizado.
+
+·      Las 3 nuevas historias creadas (con descripción y criterios visibles).
+
+·      El Backlog completo ordenado por prioridad.
+
+·      El Sprint 2 con las historias seleccionadas.
+
+ 
+
+2.    Respuesta a la pregunta de reflexión (Parte 4) en documento Word.
+
+
+Resumen de Puntaje
+
+Parte
+	
+
+Puntaje
+
+Parte 1: Crear historias de usuario
+	
+
+40 puntos
+
+Parte 2: Priorizar el Backlog
+	
+
+20 puntos
+
+Parte 3: Planificar el Sprint 2
+	
+
+25 puntos
+
+Parte 4: Reflexión
+	
+
+15 puntos
+
+TOTAL
+	
+
+100 puntos
+
+ 
+
+NOTA: Se valorará la coherencia entre las partes. Por ejemplo, si priorizas una historia como Highest pero no la incluyes en el Sprint 2, debes tener una justificación valida.

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador Hipotecario - Banco Austral | Sprint 1</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --primary: #0a2a44;
+    --primary-light: #1a4a6e;
+    --accent: #d4a843;
+    --accent-hover: #c49a35;
+    --bg: #f4f6f9;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --text-light: #6b7280;
+    --border: #d1d5db;
+    --error: #dc2626;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    --radius: 10px;
+    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: #fff;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  header h1 { font-size: 1.4rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
+  header h1 span { font-weight: 300; opacity: 0.8; }
+  .uf-config {
+    display: flex; align-items: center; gap: 0.5rem;
+    background: rgba(255,255,255,0.1); padding: 0.4rem 1rem;
+    border-radius: 6px; font-size: 0.85rem;
+  }
+  .uf-config input {
+    width: 80px; padding: 0.25rem 0.4rem;
+    border: 1px solid rgba(255,255,255,0.3); border-radius: 4px;
+    background: rgba(255,255,255,0.15); color: #fff;
+    font-size: 0.85rem; text-align: right;
+  }
+  .uf-config input:focus { outline: 2px solid var(--accent); background: rgba(255,255,255,0.25); }
+  .container { max-width: 1100px; margin: 1.5rem auto; padding: 0 1rem; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start; }
+  .card {
+    background: var(--card); border-radius: var(--radius);
+    box-shadow: var(--shadow); padding: 1.5rem;
+    border: 1px solid var(--border);
+  }
+  .card h2 {
+    font-size: 1.1rem; color: var(--primary);
+    margin-bottom: 1rem; padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .form-group { margin-bottom: 1rem; }
+  .form-group label {
+    display: block; font-weight: 500; font-size: 0.9rem;
+    margin-bottom: 0.3rem; color: var(--text);
+  }
+  .form-group .hint { font-size: 0.75rem; color: var(--text-light); margin-top: 0.2rem; }
+  .input-row { display: flex; gap: 0.5rem; align-items: center; }
+  .input-row input, .input-row select {
+    flex: 1; padding: 0.65rem 0.8rem;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 0.95rem; transition: border-color 0.2s;
+    width: 100%; font-family: var(--font);
+  }
+  .input-row input:focus, .input-row select:focus {
+    outline: none; border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(26,74,110,0.1);
+  }
+  .input-row input.error { border-color: var(--error); }
+  .input-row .suffix {
+    font-size: 0.85rem; color: var(--text-light);
+    white-space: nowrap; font-weight: 500; min-width: 30px;
+  }
+  .input-row .toggle-btn {
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 6px; padding: 0.5rem 0.8rem;
+    cursor: pointer; font-size: 0.8rem; font-weight: 600;
+    color: var(--text-light); transition: all 0.2s; white-space: nowrap;
+  }
+  .input-row .toggle-btn:hover { border-color: var(--primary-light); color: var(--primary); }
+  .input-row .toggle-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+  .error-msg { color: var(--error); font-size: 0.8rem; margin-top: 0.3rem; display: none; }
+  .error-msg.show { display: block; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 0.5rem; padding: 0.75rem 2rem; border: none;
+    border-radius: 6px; font-size: 1rem; font-weight: 600;
+    cursor: pointer; transition: all 0.2s; font-family: var(--font);
+  }
+  .btn-primary { background: var(--primary); color: #fff; }
+  .btn-primary:hover { background: var(--primary-light); transform: translateY(-1px); }
+  .btn-full { width: 100%; }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.75rem; margin-top: 0.5rem;
+  }
+  .summary-item {
+    background: var(--bg); border-radius: 8px; padding: 0.8rem; text-align: center;
+  }
+  .summary-item .label {
+    font-size: 0.7rem; text-transform: uppercase;
+    letter-spacing: 0.5px; color: var(--text-light); font-weight: 600;
+  }
+  .summary-item .value {
+    font-size: 1.15rem; font-weight: 700; color: var(--primary); margin-top: 0.2rem;
+  }
+  .summary-item .value .sub { font-size: 0.75rem; font-weight: 400; color: var(--text-light); display: block; }
+  .summary-item.highlight { background: linear-gradient(135deg, var(--primary), var(--primary-light)); }
+  .summary-item.highlight .label,
+  .summary-item.highlight .value,
+  .summary-item.highlight .value .sub { color: #fff; }
+  .results-placeholder {
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; padding: 3rem 1rem;
+    color: var(--text-light); text-align: center; gap: 0.5rem;
+  }
+  .results-placeholder .icon { font-size: 3rem; opacity: 0.4; }
+  .hidden { display: none !important; }
+  .sprint-badge {
+    display: inline-block;
+    background: var(--accent); color: var(--primary);
+    font-size: 0.65rem; font-weight: 700;
+    padding: 0.15rem 0.5rem; border-radius: 3px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    vertical-align: middle; margin-left: 0.5rem;
+  }
+  @media (max-width: 768px) {
+    .grid { grid-template-columns: 1fr; }
+    header { flex-direction: column; text-align: center; padding: 1rem; }
+    header h1 { font-size: 1.1rem; justify-content: center; }
+    .container { margin: 0.75rem auto; }
+    .card { padding: 1rem; }
+    .summary-grid { grid-template-columns: 1fr 1fr; }
+    .input-row { flex-wrap: wrap; }
+    .input-row .toggle-btn { flex: 0 0 auto; }
+  }
+  @media (max-width: 480px) {
+    .summary-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="#d4a843"/><path d="M8 20V10h3v10H8zm5-12v12h3V8h-3zm5 5v7h3v-7h-3z" fill="#0a2a44"/></svg>
+    Banco Austral <span>| Simulador Hipotecario</span>
+    <span class="sprint-badge">Sprint 1</span>
+  </h1>
+  <div class="uf-config">
+    <label for="ufValue" style="font-size:0.8rem;opacity:0.9;">1 UF = $</label>
+    <input type="number" id="ufValue" min="1000" step="10" value="36000">
+  </div>
+</header>
+
+<div class="container">
+  <div class="grid">
+    <div class="card">
+      <h2>Datos de la simulación</h2>
+      <form id="simForm" novalidate>
+        <div class="form-group">
+          <label for="propiedad">Valor de la propiedad</label>
+          <div class="input-row">
+            <input type="number" id="propiedad" placeholder="Ej: 5000" min="1" step="0.01" required>
+            <span class="suffix">UF</span>
+          </div>
+          <div class="hint">Equivalente aprox: <strong id="propiedadCLPHint">$0</strong></div>
+          <div class="error-msg" id="propiedadError">Debe ingresar un valor numérico positivo.</div>
+        </div>
+        <div class="form-group">
+          <label for="pie">Pie (mínimo 20% del valor)</label>
+          <div class="input-row">
+            <input type="number" id="pie" placeholder="Ej: 1000" min="0" step="0.01" required>
+            <button type="button" class="toggle-btn active" id="pieModeBtn" data-mode="uf">UF</button>
+          </div>
+          <div class="hint" id="pieHint">Mínimo requerido: <strong>20%</strong></div>
+          <div class="error-msg" id="pieError">El pie debe ser al menos el 20% del valor de la propiedad (mínimo <span id="pieMinDisplay">0</span>).</div>
+        </div>
+        <div class="form-group">
+          <label for="plazo">Plazo del crédito</label>
+          <div class="input-row">
+            <input type="number" id="plazo" placeholder="Ej: 20" min="5" max="30" step="1" required>
+            <span class="suffix">años</span>
+          </div>
+          <div class="hint">Mínimo 5 años, máximo 30 años</div>
+          <div class="error-msg" id="plazoError">El plazo debe estar entre 5 y 30 años.</div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Simular</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Resultado de la simulación</h2>
+      <div id="resultsContent">
+        <div class="results-placeholder" id="placeholder">
+          <div class="icon">📊</div>
+          <p>Complete los datos y presione <strong>Simular</strong> para ver el resumen de su simulación.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const UF_KEY = 'ba_uf_value';
+  let ufValue = parseFloat(localStorage.getItem(UF_KEY)) || 36000;
+  let currentResult = null;
+
+  const f = id => document.getElementById(id);
+
+  const ufInput = f('ufValue');
+  ufInput.value = ufValue;
+  ufInput.addEventListener('change', function () {
+    const v = parseFloat(this.value);
+    if (v > 0) {
+      ufValue = v;
+      localStorage.setItem(UF_KEY, String(v));
+      if (currentResult) updateCLPValues();
+    }
+  });
+
+  const propInput = f('propiedad');
+  const pieInput = f('pie');
+  const plazoInput = f('plazo');
+  const pieBtn = f('pieModeBtn');
+
+  function autoCalcMinimos() {
+    const val = parseFloat(propInput.value);
+    if (!val || val <= 0) return;
+    const minimo = val * 0.2;
+    const mode = pieBtn.dataset.mode;
+    const pieActual = parseFloat(pieInput.value);
+    if (!pieActual || pieActual <= 0) {
+      if (mode === 'uf') {
+        pieInput.value = minimo.toFixed(2);
+      } else {
+        pieInput.value = '20';
+      }
+    }
+    const plazoActual = parseInt(plazoInput.value, 10);
+    if (!plazoActual || plazoActual < 5) {
+      plazoInput.value = '5';
+    }
+    actualizarHints(val);
+  }
+
+  function actualizarHints(val) {
+    if (!val || val <= 0) {
+      f('propiedadCLPHint').textContent = '$0';
+      f('pieHint').innerHTML = 'Mínimo requerido: <strong>20%</strong>';
+      return;
+    }
+    const clp = formatCLP(val * ufValue);
+    f('propiedadCLPHint').textContent = clp;
+    const minimoUF = val * 0.2;
+    const minimoCLP = formatCLP(minimoUF * ufValue);
+    if (pieBtn.dataset.mode === 'uf') {
+      f('pieHint').innerHTML = `Mínimo requerido: <strong>${minimoUF.toFixed(2)} UF</strong> (${minimoCLP})`;
+      f('pieMinDisplay').textContent = `${minimoUF.toFixed(2)} UF (${minimoCLP})`;
+    } else {
+      f('pieHint').innerHTML = 'Mínimo requerido: <strong>20%</strong>';
+      f('pieMinDisplay').textContent = `${minimoUF.toFixed(2)} UF (${minimoCLP})`;
+    }
+  }
+
+  propInput.addEventListener('change', autoCalcMinimos);
+  propInput.addEventListener('input', function () {
+    const val = parseFloat(this.value);
+    if (val > 0) {
+      const clp = formatCLP(val * ufValue);
+      f('propiedadCLPHint').textContent = clp;
+    } else {
+      f('propiedadCLPHint').textContent = '$0';
+    }
+  });
+
+  pieBtn.addEventListener('click', function () {
+    if (this.dataset.mode === 'uf') {
+      this.dataset.mode = 'pct';
+      this.textContent = '%';
+      this.classList.remove('active');
+      pieInput.placeholder = 'Ej: 20';
+      pieInput.value = '20';
+    } else {
+      this.dataset.mode = 'uf';
+      this.textContent = 'UF';
+      this.classList.add('active');
+      pieInput.placeholder = 'Ej: 1000';
+      const val = parseFloat(propInput.value);
+      if (val > 0) pieInput.value = (val * 0.2).toFixed(2);
+    }
+    actualizarHints(parseFloat(propInput.value));
+  });
+
+  function formatNum(n) {
+    if (n == null || isNaN(n)) return '—';
+    return n.toLocaleString('es-CL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  function formatCLP(n) {
+    if (n == null || isNaN(n)) return '—';
+    return '$' + n.toLocaleString('es-CL', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  }
+  function formatUF(n) {
+    if (n == null || isNaN(n)) return '—';
+    return formatNum(n) + ' UF';
+  }
+
+  function hideError(id) { f(id).classList.remove('show'); }
+  function showError(id) { f(id).classList.add('show'); }
+
+  function calcMonthlyPayment(principal, annualRate, months) {
+    if (principal <= 0 || months <= 0) return 0;
+    const r = annualRate / 12 / 100;
+    if (r === 0) return principal / months;
+    const factor = Math.pow(1 + r, months);
+    return principal * (r * factor) / (factor - 1);
+  }
+
+  function calcCAE(annualRate) {
+    const r = annualRate / 100;
+    return ((1 + r / 12) ** 12 - 1) * 100;
+  }
+
+  function calcular(e) {
+    e.preventDefault();
+    hideError('propiedadError');
+    hideError('pieError');
+    hideError('plazoError');
+
+    const propiedad = parseFloat(f('propiedad').value);
+    const plazo = parseInt(f('plazo').value, 10);
+    let pieVal = parseFloat(pieInput.value);
+    if (pieMode() === 'pct') {
+      pieVal = isNaN(pieVal) ? 0 : propiedad * (pieVal / 100);
+    }
+
+    let valid = true;
+    if (!propiedad || propiedad <= 0) {
+      showError('propiedadError'); f('propiedad').classList.add('error'); valid = false;
+    } else { f('propiedad').classList.remove('error'); }
+
+    if (!pieVal || pieVal < 0 || isNaN(pieVal)) {
+      showError('pieError'); pieInput.classList.add('error'); valid = false;
+    } else if (pieVal < propiedad * 0.2) {
+      showError('pieError'); pieInput.classList.add('error'); valid = false;
+    } else { pieInput.classList.remove('error'); }
+
+    if (!plazo || plazo < 5 || plazo > 30) {
+      showError('plazoError'); f('plazo').classList.add('error'); valid = false;
+    } else { f('plazo').classList.remove('error'); }
+
+    if (!valid) return;
+
+    const montoFinanciar = propiedad - pieVal;
+    if (montoFinanciar <= 0) {
+      alert('El pie no puede ser mayor o igual al valor de la propiedad.');
+      return;
+    }
+
+    const anualRate = 4.5;
+    const months = plazo * 12;
+    const cuotaUF = calcMonthlyPayment(montoFinanciar, anualRate, months);
+    const cae = calcCAE(anualRate);
+    const costoTotal = cuotaUF * months;
+    const totalInteres = costoTotal - montoFinanciar;
+
+    currentResult = { propiedad, pieVal, montoFinanciar, plazo, anualRate, months, cuotaUF, cae, costoTotal, totalInteres };
+
+    renderSummary();
+    if (window.innerWidth <= 768) {
+      f('resultsContent').closest('.card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function pieMode() {
+    return pieBtn.dataset.mode;
+  }
+
+  function renderSummary() {
+    if (!currentResult) return;
+    const r = currentResult;
+    const cuotaCLP = r.cuotaUF * ufValue;
+    const montoCLP = r.montoFinanciar * ufValue;
+    const propCLP = r.propiedad * ufValue;
+    const pieCLP = r.pieVal * ufValue;
+    const costCLP = r.costoTotal * ufValue;
+
+    f('placeholder').classList.add('hidden');
+
+    const existing = f('resultsContent').querySelector('.summary-grid');
+    if (existing) existing.remove();
+
+    const intCLP = r.totalInteres * ufValue;
+
+    const html = document.createElement('div');
+    html.className = 'summary-grid';
+    html.innerHTML = `
+      <div class="summary-item highlight">
+        <div class="label">Cuota mensual</div>
+        <div class="value">${formatUF(r.cuotaUF)}<span class="sub">${formatCLP(cuotaCLP)}</span></div>
+      </div>
+      <div class="summary-item">
+        <div class="label">Valor propiedad</div>
+        <div class="value">${formatUF(r.propiedad)}<span class="sub">${formatCLP(propCLP)}</span></div>
+      </div>
+      <div class="summary-item">
+        <div class="label">Pie</div>
+        <div class="value">${formatUF(r.pieVal)}<span class="sub">${formatCLP(pieCLP)}</span></div>
+      </div>
+      <div class="summary-item">
+        <div class="label">Monto a financiar</div>
+        <div class="value">${formatUF(r.montoFinanciar)}<span class="sub">${formatCLP(montoCLP)}</span></div>
+      </div>
+      <div class="summary-item">
+        <div class="label">Plazo</div>
+        <div class="value">${r.plazo} años<span class="sub">${r.months} cuotas</span></div>
+      </div>
+      <div class="summary-item">
+        <div class="label">Tasa de interés</div>
+        <div class="value">${r.anualRate}%<span class="sub">Anual fija</span></div>
+      </div>
+      <div class="summary-item">
+        <div class="label">CAE</div>
+        <div class="value">${r.cae.toFixed(2)}%<span class="sub">Carga Anual Equivalente</span></div>
+      </div>
+      <div class="summary-item highlight">
+        <div class="label">Total a pagar</div>
+        <div class="value">${formatUF(r.costoTotal)}<span class="sub">${formatCLP(costCLP)}</span></div>
+      </div>
+      <div class="summary-item">
+        <div class="label">Intereses totales</div>
+        <div class="value">${formatUF(r.totalInteres)}<span class="sub">${formatCLP(intCLP)}</span></div>
+      </div>
+    `;
+    f('resultsContent').appendChild(html);
+  }
+
+  function updateCLPValues() {
+    if (!currentResult) return;
+    const r = currentResult;
+    const grid = f('resultsContent').querySelector('.summary-grid');
+    if (!grid) return;
+    const cells = grid.querySelectorAll('.value');
+    if (cells.length < 9) return;
+    cells[0].innerHTML = `${formatUF(r.cuotaUF)}<span class="sub">${formatCLP(r.cuotaUF * ufValue)}</span>`;
+    cells[1].innerHTML = `${formatUF(r.propiedad)}<span class="sub">${formatCLP(r.propiedad * ufValue)}</span>`;
+    cells[2].innerHTML = `${formatUF(r.pieVal)}<span class="sub">${formatCLP(r.pieVal * ufValue)}</span>`;
+    cells[3].innerHTML = `${formatUF(r.montoFinanciar)}<span class="sub">${formatCLP(r.montoFinanciar * ufValue)}</span>`;
+    cells[6].innerHTML = `${r.cae.toFixed(2)}%<span class="sub">Carga Anual Equivalente</span>`;
+    cells[7].innerHTML = `${formatUF(r.costoTotal)}<span class="sub">${formatCLP(r.costoTotal * ufValue)}</span>`;
+    cells[8].innerHTML = `${formatUF(r.totalInteres)}<span class="sub">${formatCLP(r.totalInteres * ufValue)}</span>`;
+  }
+
+  f('simForm').addEventListener('submit', calcular);
+})();
+</script>
+</body>
+</html>

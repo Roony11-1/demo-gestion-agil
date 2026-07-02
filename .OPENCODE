@@ -1,0 +1,153 @@
+===========================================================
+ REGISTRO DE TRABAJO - SIMULADOR HIPOTECARIO
+===========================================================
+FECHA: 2026-07-02
+
+===========================================================
+ARCHIVOS DEL PROYECTO
+===========================================================
+
+1. Lab_Scrum_Jira_Simulador_Hipotecario.docx
+   -> Guía de laboratorio original (8 HU, referencia).
+
+2. Scrum_Review_Guia.docx  <-- EVALUACIÓN ACTUAL
+   -> Pauta para la Sprint Review del Sprint 1.
+   -> Demo funcional del incremento (prototipo web).
+
+3. contexto2.txt
+   -> Mejora futura (Requerimiento 3 - historial).
+   -> NO forma parte del Sprint 1.
+
+4. index.html
+   -> Prototipo funcional construido para la evaluación.
+
+===========================================================
+HISTORIAS DE USUARIO DEL SPRINT 1
+===========================================================
+
+HU1 - Ingresar datos de simulación
+  Prioridad: Highest
+  Como cliente del banco, quiero ingresar el valor de la
+  propiedad, el monto del pie y el plazo del crédito, para
+  obtener una simulación personalizada.
+  Criterios de aceptación:
+  - Formulario con campos: valor propiedad (UF), pie (UF o %),
+    plazo (años).
+  - Plazo: 5 a 30 años.
+  - Pie mínimo: 20% del valor de la propiedad.
+  - Todos los campos obligatorios.
+  - Validar valores numéricos y positivos.
+
+HU2 - Calcular cuota mensual del crédito
+  Prioridad: Medium
+  Como cliente del banco, quiero calcular la cuota mensual
+  de mi crédito hipotecario, para evaluar si puedo pagarlo.
+  Criterios de aceptación:
+  - Cuota con amortización francesa (cuota fija).
+  - Tasa anual 4.5% convertida a mensual.
+  - Resultado en UF y pesos chilenos.
+  - Botón 'Simular' ejecuta el cálculo.
+
+HU3 - Mostrar resumen de la simulación
+  Prioridad: Medium
+  Como cliente del banco, quiero ver un resumen de la
+  simulación, para tomar una decisión informada.
+  Criterios de aceptación:
+  - Resumen incluye: valor propiedad, pie, monto a financiar,
+    plazo, tasa, cuota mensual, costo total del crédito.
+  - Montos en UF y pesos chilenos.
+  - Mostrar CAE según normativa CMF.
+  - Visualmente claro y fácil de leer.
+
+HU4 - Validar monto máximo de financiamiento
+  Prioridad: Alta
+  Como banco, quiero validar que el financiamiento no supere
+  el 80% del valor de la propiedad, para cumplir políticas
+  de riesgo.
+  Criterios de aceptación:
+  - Si pie < 20%, mostrar mensaje de error claro.
+  - Mensaje indica el monto mínimo de pie requerido.
+  - No permitir continuar si no se cumple la regla.
+
+HU5 - Convertir valores entre UF y pesos
+  Prioridad: Media
+  Como cliente del banco, quiero ver los valores en UF y
+  pesos, para entender mejor los montos del crédito.
+  Criterios de aceptación:
+  - Valor UF configurable para el MVP.
+  - Todos los montos en ambas monedas.
+  - Conversión consistente en toda la aplicación.
+
+===========================================================
+IMPLEMENTACIÓN - index.html
+===========================================================
+Stack: HTML5 + CSS3 + JS vanilla (sin frameworks, sin servidor)
+
+Cobertura de criterios:
+
+HU1 - Ingresar datos
+  [x] Campos: valor propiedad (UF), pie (UF o % toggle), plazo
+  [x] Plazo validado entre 5 y 30 años
+  [x] Pie mínimo 20% validado
+  [x] Campos obligatorios
+  [x] Validación numérica y positiva
+
+HU2 - Calcular cuota
+  [x] Fórmula amortización francesa: M = P[r(1+r)^n]/[(1+r)^n-1]
+  [x] Tasa 4.5% anual → mensual (/12)
+  [x] Resultado en UF y CLP
+  [x] Botón Simular
+
+HU3 - Resumen
+  [x] Dashboard con tarjetas: propiedad, pie, monto financiar,
+      plazo, tasa, cuota mensual, costo total
+  [x] Montos en UF + CLP
+  [x] CAE: ((1 + tasa/12)^12 - 1) * 100
+  [x] Diseño visual tipo dashboard
+
+HU4 - Validación 80%
+  [x] Mensaje de error si pie < 20%
+  [x] Indica monto mínimo requerido (UF y CLP)
+  [x] Bloquea el cálculo si no cumple
+
+HU5 - UF y pesos
+  [x] Input configurable en header (1 UF = $)
+  [x] Valor persistente en localStorage
+  [x] Todos los montos muestran UF + CLP
+  [x] Recálculo automático al cambiar UF
+
+===========================================================
+MEJORAS DE USABILIDAD
+===========================================================
+
+Auto-cálculo de valores mínimos:
+  - Al cambiar el valor de la propiedad (evento change), se
+    auto-completa el pie con el 20% mínimo y el plazo a 5 años
+    si están vacíos o en cero.
+  - La propiedad muestra en vivo su equivalente en CLP mientras
+    se escribe (evento input).
+  - El hint del pie se actualiza dinámicamente mostrando el
+    mínimo requerido en UF y CLP según el valor ingresado.
+  - Al cambiar el modo pie (UF/%):
+    - Si está en % → se fija en 20%.
+    - Si está en UF → se calcula el 20% del valor actual.
+    - Los hints se actualizan automáticamente.
+
+Formato de moneda:
+  - Todos los montos CLP usan formato chileno con puntos
+    como separador de miles: $1.000.000, $200.000, etc.
+  - Números UF con 2 decimales y separador de miles.
+
+===========================================================
+CÓMO USAR LA DEMO
+===========================================================
+1. Abrir index.html en cualquier navegador moderno.
+2. Ajustar valor de UF en el header si es necesario.
+3. Ingresar valor propiedad (UF) — se auto-completan pie (20%)
+   y plazo (5 años) con valores mínimos.
+4. Ajustar pie y plazo si se desea.
+5. Presionar "Simular".
+6. Ver resumen con montos en UF y CLP, más el CAE.
+7. Modificar valor UF en header para recálculo en vivo.
+
+===========================================================
