@@ -44,12 +44,19 @@ ESTRUCTURA DE LA PRESENTACIÓN
 3) ESTADO DEL PRODUCT BACKLOG (30 seg)
    ──────────────────────────────────────
    □ "Completamos las 5 historias planificadas."
-   □ "Las 3 historias restantes (tabla amortización,
-      comparar escenarios, responsive) quedan en el
-      Backlog para los próximos sprints."
-   □ "El profesor nos entregó un nuevo requerimiento
-      (historial de simulaciones — contexto2.txt) que
-      se priorizará para el Sprint 2."
+   □ "Pool completo para los próximos sprints:"
+
+     • 3 pendientes del Sprint 1 (SH-6, SH-7, SH-8)
+     • 3 nuevos requerimientos (contexto2.txt):
+       - Req 1: ? (por definir)
+       - Req 2: ? (por definir)
+       - Req 3: Historial de simulaciones (localStorage)
+
+   □ "Backlog priorizado sugerido: pendientes Sprint 1
+      primero, luego nuevos requerimientos."
+   □ "El profesor entregó 3 nuevos requerimientos para
+      evaluar (contexto2.txt) — el Req 3 es historial
+      de simulaciones."
 
 4) DEMOSTRACIÓN DEL INCREMENTO (5-7 min) ← ESTRELLA
    ───────────────────────────────────────────────
@@ -122,10 +129,11 @@ ESTRUCTURA DE LA PRESENTACIÓN
    ─────────────────────────────────
    □ "Próximo Sprint: Sprint 2 — Regulatorio y Mejoras."
    □ "Capacidad estimada: 16 SP (basado en velocidad)."
-   □ "Posibles candidatos para Sprint 2:"
-     - Tabla de amortización (5 SP)
-     - Historial de simulaciones (nuevo req)
-     - Comparar escenarios (8 SP)
+   □ "Posibles candidatos para Sprint 2 (del pool):"
+     - 3 pendientes Sprint 1: SH-6, SH-7, SH-8
+     - 3 nuevos requerimientos (contexto2.txt)
+   □ "Debemos respetar capacidad de 16 SP y priorizar
+      según valor de negocio."
    □ "Ajustaremos el Backlog con el feedback recibido."
    □ "Gracias. ¿Alguna pregunta final?"
 

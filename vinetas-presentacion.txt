@@ -26,11 +26,13 @@ VIÑETAS PARA LA SPRINT REVIEW - SPRINT 1
 3) ESTADO DEL BACKLOG
 ─────────────────────────
 • 5/5 historias completadas ✅
-• Pendientes para próximos sprints:
-  - Tabla de amortización
-  - Comparar escenarios
-  - Diseño responsive
-• Nuevo requerimiento recibido (historial de simulaciones)
+• Pool completo (3 pendientes Sprint 1 + contexto2.txt):
+  - SH-6: Mostrar tabla de amortización             5 SP
+  - SH-7: Comparar escenarios de simulación         8 SP
+  - SH-8: Diseñar interfaz responsive               5 SP
+  - Req 1: (nuevo, por definir)                     ? SP
+  - Req 2: (nuevo, por definir)                     ? SP
+  - Req 3: Historial de simulaciones (localStorage) ? SP
 
 4) DEMOSTRACIÓN — PASO A PASO
 ───────────────────────────────
@@ -88,8 +90,8 @@ VIÑETAS PARA LA SPRINT REVIEW - SPRINT 1
 ─────────────────────────
 • Sprint 2 — Regulatorio y Mejoras
 • Capacidad: 16 SP
-• Candidatos: tabla amortización (5) + historial +
-  comparar escenarios (8)
+• Candidatos: pendientes Sprint 1 (SH-6, SH-7, SH-8) +
+  nuevos requerimientos (contexto2.txt)
 • Ajustamos Backlog con feedback recibido
 • Gracias — preguntas
 
