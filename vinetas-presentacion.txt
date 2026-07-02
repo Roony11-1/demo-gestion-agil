@@ -1,0 +1,96 @@
+===========================================================
+VIÑETAS PARA LA SPRINT REVIEW - SPRINT 1
+===========================================================
+
+1) BIENVENIDA Y CONTEXTO
+─────────────────────────
+• Sprint Review del Sprint 1 - Simulador Hipotecario
+• Banco Austral — transformación digital
+• Clientes hoy: sucursal o teléfono → largas esperas
+• Solución: simulador web para cotizar online
+• Equipo trabaja con Scrum, Sprints de 2 semanas
+
+2) OBJETIVOS DEL SPRINT
+─────────────────────────
+• Sprint 1 — MVP Simulador (16 SP)
+• Meta: que el cliente ingrese datos, calcule cuota y vea resumen
+• 5 HU comprometidas:
+
+  HU1 [Highest] Ingresar datos de simulación        3 SP
+  HU2 [Medium]  Calcular cuota mensual               5 SP
+  HU3 [Medium]  Mostrar resumen de la simulación     3 SP
+  HU4 [Alta]    Validar monto máximo (80%)           2 SP
+  HU5 [Media]   Convertir valores UF y CLP           3 SP
+                 Total →                            16 SP
+
+3) ESTADO DEL BACKLOG
+─────────────────────────
+• 5/5 historias completadas ✅
+• Pendientes para próximos sprints:
+  - Tabla de amortización
+  - Comparar escenarios
+  - Diseño responsive
+• Nuevo requerimiento recibido (historial de simulaciones)
+
+4) DEMOSTRACIÓN — PASO A PASO
+───────────────────────────────
+
+── HU1: Ingresar datos ──
+  ✔ Formulario: valor propiedad (UF), pie, plazo (años)
+  ✔ Plazo válido: 5 a 30 años
+  ✔ Pie: toggle UF ↔ %, mínimo 20% se autocompleta
+  ✔ Campos obligatorios, validación numérica
+  ✔ Equivalencia en CLP en vivo mientras escribe
+
+── HU4: Validar 80% ──
+  ✔ "Casa de 100 UF → mínimo 20 UF de pie"
+  ✔ Si pie < 20% → muestra error y bloquea
+  ✔ Error dice cuánto es el mínimo requerido
+
+── HU2: Calcular cuota ──
+  ✔ Ingresar: propiedad=1000, pie=200, plazo=5
+  ✔ Presionar "Simular"
+  ✔ Cálculo con amortización francesa (cuota fija)
+  ✔ Tasa 4.5% anual → mensual
+  ✔ Resultado: UF y CLP
+
+── HU3: Resumen ──
+  ✔ Dashboard con todas las variables
+  ✔ Señalar: propiedad, pie, monto financiar, plazo,
+    tasa, cuota mensual
+  ✔ → Total a pagar (destacado): cuotas × total
+  ✔ → Intereses totales: lo que paga de más
+  ✔ Ejemplo: 800 UF prestados → 894 UF total
+                 → 94 UF de intereses ≈ $3.4MM
+  ✔ CAE: 4.59% — tasa real anual del crédito
+
+── HU5: UF ↔ CLP ──
+  ✔ Todos los montos en UF + CLP
+  ✔ Valor UF configurable en el header
+  ✔ Cambiar UF → todos los CLP se recalculan al instante
+  ✔ MVP usa valor fijo; producción integraría API BC
+
+5) FEEDBACK
+─────────────────────────
+• ¿La info que entrega es suficiente para decidir?
+• ¿Agregarían algo al formulario o resumen?
+• ¿El flujo es intuitivo?
+• ¿Qué priorizar para el próximo Sprint?
+• Anotar todo
+
+6) MÉTRICAS
+─────────────────────────
+• Velocidad: 16 SP completados
+• Cumplimiento: 5/5 HU (100%)
+• Sin deuda técnica
+
+7) CIERRE
+─────────────────────────
+• Sprint 2 — Regulatorio y Mejoras
+• Capacidad: 16 SP
+• Candidatos: tabla amortización (5) + historial +
+  comparar escenarios (8)
+• Ajustamos Backlog con feedback recibido
+• Gracias — preguntas
+
+===========================================================

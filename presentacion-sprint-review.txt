@@ -1,0 +1,164 @@
+===========================================================
+GUÍA DE PRESENTACIÓN - SPRINT REVIEW SPRINT 1
+Basada en Scrum_Review_Guia.docx
+===========================================================
+
+🎯 OBJETIVO
+  Inspeccionar el incremento del Sprint 1 (prototipo funcional
+  del Simulador Hipotecario), obtener feedback del profesor
+  (stakeholder) y ajustar el Backlog.
+
+===========================================================
+ESTRUCTURA DE LA PRESENTACIÓN
+===========================================================
+
+1) BIENVENIDA Y CONTEXTO (1-2 min)
+   ─────────────────────────────
+   □ "Hoy presentamos la Sprint Review del Sprint 1 del
+      proyecto Simulador Hipotecario — Banco Austral."
+
+   □ Contexto rápido:
+     - Banco Austral quiere modernizar su canal digital.
+     - Los clientes hoy deben ir a sucursal para cotizar.
+     - Desarrollamos un simulador web para cotizar online.
+     - Equipo trabajó con Scrum en Sprints de 2 semanas.
+
+2) REPASO DE LOS OBJETIVOS DEL SPRINT (1 min)
+   ────────────────────────────────────────────
+   □ "El objetivo del Sprint 1 fue construir el MVP del
+      Simulador Hipotecario, priorizando el core: que el
+      cliente pueda ingresar datos, calcular su cuota y
+      ver un resumen claro."
+
+   □ Sprint 1 - MVP Simulador (16 story points planeados).
+
+   □ Listar las 5 HU comprometidas:
+
+     HU1  [Highest] Ingresar datos de simulación       3 SP
+     HU2  [Medium]  Calcular cuota mensual             5 SP
+     HU3  [Medium]  Mostrar resumen de la simulación   3 SP
+     HU4  [Alta]    Validar monto máximo (80%)          2 SP
+     HU5  [Media]   Convertir valores entre UF y CLP   3 SP
+                    Total →                           16 SP
+
+3) ESTADO DEL PRODUCT BACKLOG (30 seg)
+   ──────────────────────────────────────
+   □ "Completamos las 5 historias planificadas."
+   □ "Las 3 historias restantes (tabla amortización,
+      comparar escenarios, responsive) quedan en el
+      Backlog para los próximos sprints."
+   □ "El profesor nos entregó un nuevo requerimiento
+      (historial de simulaciones — contexto2.txt) que
+      se priorizará para el Sprint 2."
+
+4) DEMOSTRACIÓN DEL INCREMENTO (5-7 min) ← ESTRELLA
+   ───────────────────────────────────────────────
+   □ ABRIR index.html en el navegador.
+   □ Mostrar CADA HU con su demo funcional:
+
+   ── HU1: Ingresar datos ──
+     "Aquí el formulario con 3 campos: valor propiedad
+      en UF, pie (con toggle a %), y plazo en años."
+     ✔ Mostrar que el plazo solo acepta 5-30.
+     ✔ Mostrar que pie mínimo 20% se autocompleta.
+     ✔ Mostrar validación: poner "abc" en propiedad
+       → no deja.
+     ✔ Mostrar equivalencia en CLP en vivo mientras
+       se tipea.
+
+   ── HU4: Validación 80% ──
+     "Validación de políticas de riesgo del banco."
+     ✔ Poner propiedad=100, pie=10 → mostrar error:
+       "El pie debe ser al menos el 20%".
+     ✔ Corregir a pie=20 → funciona.
+
+   ── HU2: Calcular cuota ──
+     "Fórmula de amortización francesa."
+     ✔ Ingresar propiedad=1000, pie=200, plazo=5.
+     ✔ Presionar SIMULAR.
+     ✔ Mostrar cuota mensual en UF y CLP.
+
+   ── HU3: Resumen ──
+     "Dashboard con todas las variables del crédito."
+     ✔ Señalar cada tarjeta: propiedad, pie, monto a
+       financiar, plazo, tasa, cuota mensual.
+     ✔ DESTACAR: "Total a pagar" y "Intereses totales".
+     ✔ Explicar: "Si pido 800 UF, pago 894 UF total
+       → 94 UF de intereses = $3.4MM aprox."
+     ✔ Señalar el CAE (4.59%) y explicar que es la
+       tasa real anual incluyendo todos los costos.
+
+   ── HU5: UF ↔ CLP ──
+     "Conversión consistente en toda la app."
+     ✔ Cambiar valor de UF en el header (ej: 36000→37000).
+     ✔ Mostrar que todos los CLP se recalculan solos.
+     ✔ "El valor UF es configurable porque en el MVP
+       usamos un valor fijo; en producción se integraría
+       con la API del Banco Central."
+
+5) FEEDBACK DE STAKEHOLDERS (2-3 min)
+   ────────────────────────────────────
+   □ "¿Qué les parece la experiencia hasta ahora?"
+   □ Preguntas guía para el profesor:
+     - "¿La calculadora entrega la información que un
+        cliente necesitaría para decidir?"
+     - "¿Agregarían algún campo o dato en el resumen?"
+     - "¿El flujo les parece intuitivo?"
+     - "¿Qué les gustaría ver en el próximo Sprint?"
+
+   □ ANOTAR todo el feedback (en papel o Word).
+     "Todo esto lo incorporamos al Product Backlog."
+
+6) MÉTRICAS RELEVANTES (1 min)
+   ─────────────────────────────
+   □ "Métricas del Sprint 1:"
+     - Velocidad del equipo: 16 SP completados.
+     - HU comprometidas: 5/5 (100%).
+     - Sin deuda técnica pendiente.
+   □ (Si hicieron seguimiento visual en Jira, mostrar
+      el Burn Down Chart o el tablero con todo en Done.)
+
+7) CIERRE Y PRÓXIMOS PASOS (1 min)
+   ─────────────────────────────────
+   □ "Próximo Sprint: Sprint 2 — Regulatorio y Mejoras."
+   □ "Capacidad estimada: 16 SP (basado en velocidad)."
+   □ "Posibles candidatos para Sprint 2:"
+     - Tabla de amortización (5 SP)
+     - Historial de simulaciones (nuevo req)
+     - Comparar escenarios (8 SP)
+   □ "Ajustaremos el Backlog con el feedback recibido."
+   □ "Gracias. ¿Alguna pregunta final?"
+
+===========================================================
+CONSEJOS PRÁCTICOS
+===========================================================
+
+✅ ANTES DE LA REVIEW
+  - Tener index.html abierto en el navegador ANTES de
+    empezar la reunión.
+  - Cerrar otras pestañas para evitar distracciones.
+  - Tener datos de prueba predefinidos (ej: 1000 UF,
+    200 UF, 5 años) para la demo.
+  - Tener el .OPENCODE o notas a mano con los puntos clave.
+
+✅ DURANTE LA DEMO
+  - Hablar en lenguaje de negocio, NO técnico.
+    "Calculamos la cuota" → NO "usamos el método francés".
+  - Mostrar el valor para el cliente, no el código.
+  - Si algo falla, mantener la calma y seguir.
+  - Señalar con el mouse cada elemento del que se habla.
+
+✅ DESPUÉS DE LA REVIEW
+  - Enviar un resumen por escrito al profesor con:
+    - Lo que se demostró.
+    - Feedback recibido.
+    - Acciones acordadas para el Sprint 2.
+
+===========================================================
+ANTI-PATRONES A EVITAR (de Scrum_Review_Guia.docx)
+===========================================================
+  ❌ Presentación técnica sin valor para el negocio.
+  ❌ No mostrar el incremento real (demo falsa).
+  ❌ No registrar el feedback de los stakeholders.
+
+===========================================================
